@@ -59,3 +59,46 @@ def test_create_post():
     assert data["body"] == payload["body"]
     assert data["userId"] == payload["userId"]
     assert "id" in data
+
+
+def test_update_post_put():
+    payload = {
+        "id": 1,
+        "title": "updated title",
+        "body": "updated body",
+        "userId": 1
+    }
+
+    response = requests.put(f"{BASE_URL}/posts/1", json=payload)
+
+    assert response.status_code == 200
+
+    data = response.json()
+
+    assert data["id"] == payload["id"]
+    assert data["title"] == payload["title"]
+    assert data["body"] == payload["body"]
+    assert data["userId"] == payload["userId"]
+
+
+def test_update_post_patch():
+    payload = {
+        "title": "patched title"
+    }
+
+    response = requests.patch(f"{BASE_URL}/posts/1", json=payload)
+
+    assert response.status_code == 200
+
+    data = response.json()
+
+    assert data["title"] == payload["title"]
+    assert "id" in data
+    assert "body" in data
+    assert "userId" in data
+
+
+def test_delete_post():
+    response = requests.delete(f"{BASE_URL}/posts/1")
+
+    assert response.status_code == 200
