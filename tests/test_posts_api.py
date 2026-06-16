@@ -102,3 +102,73 @@ def test_delete_post():
     response = requests.delete(f"{BASE_URL}/posts/1")
 
     assert response.status_code == 200
+
+
+def test_get_posts_by_user_id():
+    params = {
+        "userId": 1
+    }
+
+    response = requests.get(f"{BASE_URL}/posts", params=params)
+
+    assert response.status_code == 200
+
+    data = response.json()
+
+    assert isinstance(data, list)
+    assert len(data) > 0
+
+    for post in data:
+        assert post["userId"] == params["userId"]
+
+
+def test_get_posts_by_user_id():
+    params = {
+        "userId": 1
+    }
+
+    response = requests.get(f"{BASE_URL}/posts", params=params)
+
+    assert response.status_code == 200
+
+    data = response.json()
+
+    assert isinstance(data, list)
+    assert len(data) > 0
+
+    for post in data:
+        assert post["userId"] == params["userId"]
+
+
+def test_get_posts_by_unknown_user_id():
+    params = {
+        "userId": 999999
+    }
+
+    response = requests.get(f"{BASE_URL}/posts", params=params)
+
+    assert response.status_code == 200
+
+    data = response.json()
+
+    assert data == []
+
+
+def test_get_post_with_accept_json_header():
+    headers = {
+        "Accept": "application/json"
+    }
+
+    response = requests.get(f"{BASE_URL}/posts/1", headers=headers)
+
+    assert response.status_code == 200
+
+    assert "application/json" in response.headers["Content-Type"]
+
+
+def test_get_post_response_content_type():
+    response = requests.get(f"{BASE_URL}/posts/1")
+
+    assert response.status_code == 200
+
+    assert "application/json" in response.headers["Content-Type"]
