@@ -14,6 +14,8 @@
 - query params
 - headers
 - проверку `Content-Type`
+- negative cases для неполного JSON body
+- параметризацию API-тестов
 - GitHub Actions для автоматического запуска тестов
 
 ## Учебный API
@@ -54,6 +56,7 @@ python -m pytest
 - `GET /posts?userId=1` — фильтрация через query params
 - `GET /posts?userId=999999` — пустой результат фильтрации
 - проверка заголовка ответа `Content-Type`
+- `POST /posts` с неполным JSON body — фиксация поведения учебного API
 
 ## Что показывает проект
 
@@ -67,5 +70,7 @@ python -m pytest
 - проверку успешных и ошибочных сценариев;
 - проверку query params;
 - проверку headers и `Content-Type`;
+- параметризацию payload для POST-запросов;
+- фиксацию фактического поведения учебного API для неполных данных;
 - запуск API-тестов через `pytest`;
 - автоматический запуск тестов через GitHub Actions.
