@@ -16,6 +16,7 @@
 - проверку `Content-Type`
 - negative cases для неполного JSON body
 - параметризацию API-тестов
+- schema validation через `jsonschema`
 - GitHub Actions для автоматического запуска тестов
 
 ## Учебный API
@@ -57,6 +58,7 @@ python -m pytest
 - `GET /posts?userId=999999` — пустой результат фильтрации
 - проверка заголовка ответа `Content-Type`
 - `POST /posts` с неполным JSON body — фиксация поведения учебного API
+- schema validation для одного поста и списка постов
 
 ## Что показывает проект
 
@@ -72,5 +74,6 @@ python -m pytest
 - проверку headers и `Content-Type`;
 - параметризацию payload для POST-запросов;
 - фиксацию фактического поведения учебного API для неполных данных;
+- проверку JSON-структуры через `jsonschema`;
 - запуск API-тестов через `pytest`;
 - автоматический запуск тестов через GitHub Actions.
