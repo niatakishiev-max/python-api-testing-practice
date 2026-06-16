@@ -1,3 +1,5 @@
+import pytest
+
 import requests
 
 BASE_URL = "https://jsonplaceholder.typicode.com"
@@ -172,3 +174,19 @@ def test_get_post_response_content_type():
     assert response.status_code == 200
 
     assert "application/json" in response.headers["Content-Type"]
+
+
+@pytest.mark.parametrize("payload", [
+    {},
+    {"title": "only title"},
+    {"body": "only body"},
+    {"userId": 1},
+])
+def test_create_post_with_incomplete_payload(payload):
+    response = requests.post(f"{BASE_URL}/posts", json=payload)
+
+    assert response.status_code == 201
+
+    data = response.json()
+
+    assert "id" in data
