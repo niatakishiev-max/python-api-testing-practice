@@ -1,8 +1,24 @@
 import pytest
-
 import requests
+from jsonschema import validate
 
 BASE_URL = "https://jsonplaceholder.typicode.com"
+
+POST_SCHEMA = {
+    "type": "object",
+    "required": ["userId", "id", "title", "body"],
+    "properties": {
+        "userId": {"type": "integer"},
+        "id": {"type": "integer"},
+        "title": {"type": "string"},
+        "body": {"type": "string"}
+    }
+}
+
+POSTS_LIST_SCHEMA = {
+    "type": "array",
+    "items": POST_SCHEMA
+}
 
 
 def test_get_post_by_id():
@@ -11,6 +27,8 @@ def test_get_post_by_id():
     assert response.status_code == 200
 
     data = response.json()
+
+    validate(instance=data, schema=POST_SCHEMA)
 
     assert data["id"] == 1
     assert "title" in data
@@ -27,6 +45,8 @@ def test_get_posts_list():
     assert response.status_code == 200
 
     data = response.json()
+
+    validate(instance=data, schema=POSTS_LIST_SCHEMA)
 
     assert isinstance(data, list)
     assert len(data) > 0
@@ -116,6 +136,8 @@ def test_get_posts_by_user_id():
     assert response.status_code == 200
 
     data = response.json()
+
+    validate(instance=data, schema=POSTS_LIST_SCHEMA)
 
     assert isinstance(data, list)
     assert len(data) > 0
