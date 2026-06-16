@@ -11,6 +11,9 @@
 - библиотеку `requests`
 - API-тесты через `pytest`
 - базовые REST-методы: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`
+- query params
+- headers
+- проверку `Content-Type`
 - GitHub Actions для автоматического запуска тестов
 
 ## Учебный API
@@ -48,6 +51,9 @@ python -m pytest
 - `PUT /posts/1` — полное обновление поста
 - `PATCH /posts/1` — частичное обновление поста
 - `DELETE /posts/1` — удаление поста
+- `GET /posts?userId=1` — фильтрация через query params
+- `GET /posts?userId=999999` — пустой результат фильтрации
+- проверка заголовка ответа `Content-Type`
 
 ## Что показывает проект
 
@@ -59,5 +65,7 @@ python -m pytest
 - проверку обязательных полей ответа;
 - проверку типов данных;
 - проверку успешных и ошибочных сценариев;
+- проверку query params;
+- проверку headers и `Content-Type`;
 - запуск API-тестов через `pytest`;
 - автоматический запуск тестов через GitHub Actions.
